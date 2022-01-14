@@ -7,11 +7,16 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "vue": "^3.0.0"
+    "lodash": "^4.17.21",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
+    "@vue/cli-plugin-router": "^4.5.15",
     "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0"
+    "@vue/compiler-sfc": "^3.0.0",
+    "stylus": "^0.56.0",
+    "stylus-loader": "^6.2.0"
   },
   "browserslist": [
     "> 1%",
