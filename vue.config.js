@@ -1,7 +1,7 @@
 module.exports = {
+  silent: true,
   pages: {
     index: {
-      // entry for the page
       entry: 'src/main.js',
       title: 'Manage Todo',
     },
@@ -13,10 +13,9 @@ module.exports = {
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
 
-  manifestOptions: {
-      display: 'standalone',
-      background_color: '#8ACAFE'
-  }
-
+    manifestOptions: {
+        display: 'standalone',
+        background_color: '#8ACAFE'
+    }
   }
 }

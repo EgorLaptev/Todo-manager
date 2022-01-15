@@ -8,7 +8,9 @@
 
     <main class="app__body">
         <input type="text" placeholder="Write title for new todo #tags" class="app_add-todo" v-model.trim="todo.title" @keydown.enter="addTodo">
-        <TodoList :todos="filteredTodos"></TodoList>
+        <TodoList>
+            <TodoItem v-for="todo of filteredTodos" :todo="todo" @updateOpenedTodo="openTodo" @deleteTodo="deleteTodo"></TodoItem>
+        </TodoList>
     </main>
 
     <EditTodo :todo="openedTodo"></EditTodo>
@@ -18,6 +20,7 @@
 <script>
 
     import * as _ from "lodash";
+    import { computed, ref } from "vue";
 
     // Vue components
     import OptionsPanel from "../components/OptionsPanel.vue";
@@ -25,6 +28,7 @@
     import PureLoader from "../components/PureLoader.vue";
     import EditTodo from "../components/EditTodo.vue";
     import TodoList from "../components/TodoList.vue";
+    import TodoItem from "../components/TodoItem.vue";
 
     window.baseUrl = 'https://my.todos.gq';
     window.bearerToken = 'Bearer a5bef7e392e140f7d68106310e3435db3b1902e0d44d0c8768ee6090af7e97ddcf9a61'
@@ -36,7 +40,7 @@
                 todo: { id: null, title: '', description: '', completed: false, tags: [] },
                 todos: [],
                 tags: new Set(),
-                openedTodo: { id: 1, title: 'hello', description: 'world', completed: false, tags: [] },
+                openedTodo: null,
                 dataIsLoading: true,
                 filters: { tag: null, list: 0 },
                 lists: [
@@ -47,6 +51,7 @@
             }
         },
         components: {
+            TodoItem,
             OptionsPanel,
             FiltersPanel,
             PureLoader,
@@ -119,6 +124,15 @@
                         localStorage.setItem('todos', JSON.stringify(todos['data']));
                         this.dataIsLoading = false;
                     });
+            },
+            deleteTodo(id) {
+                const todo = this.todos.find( item => item.id === id );
+                this.todos.splice(this.todos.indexOf(todo), 1);
+
+                fetch(`${baseUrl}/api/todos/${id}`, {
+                    headers: { Authorization: bearerToken },
+                    method: 'DELETE'
+                });
             }
         },
         watch: {
@@ -159,7 +173,6 @@
             return {
                 filters: this.filters,
                 lists:   this.lists,
-                todos:   this.todos,
                 tags:    this.tags,
             }
         },

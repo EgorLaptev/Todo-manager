@@ -25,7 +25,6 @@
 
     export default {
         name: "TodoItem",
-        inject: ['todos'],
         data() {
             return {
                 showOptions: false
@@ -35,9 +34,13 @@
             todo: Object
         },
         methods: {
-            openTodo(id) { },
             toggleOptions(e) { this.showOptions = !this.showOptions },
-            deleteTodo(id) { }
+            openTodo(id) {
+               this.$emit('updateOpenedTodo', id);
+            },
+            deleteTodo(id) {
+                this.$emit('deleteTodo', id);
+            }
         },
         components: {
             TodoTags

@@ -3,6 +3,6 @@ import router from './router';
 import App from './App.vue';
 import './registerServiceWorker'
 
-const app = createApp(App)
+window.app = createApp(App)
     .use(router)
     .mount('#app');

@@ -1,22 +1,17 @@
 <template>
 
     <ul class="todos-list">
-        <todo-item v-for="todo of todos" :todo="todo"></todo-item>
+        <slot></slot>
     </ul>
 
 </template>
 
 <script>
 
-    import TodoItem from "./TodoItem.vue";
-
     export default {
         name: "TodoList",
         props: ['todos'],
         inject: ['filters'],
-        components: {
-            TodoItem
-        }
     }
 
 </script>
