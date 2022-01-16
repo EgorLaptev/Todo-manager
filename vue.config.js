@@ -1,5 +1,4 @@
 module.exports = {
-  silent: true,
   pages: {
     index: {
       entry: 'src/main.js',
