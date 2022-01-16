@@ -7,14 +7,14 @@ module.exports = {
   },
   pwa: {
     name: 'Todo manager',
-    themeColor: '#8ACAFE',
-    msTileColor: '#000000',
+    themeColor: '#FFFFFF',
+    msTileColor: '#FFFFFF',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
 
     manifestOptions: {
         display: 'standalone',
-        background_color: '#8ACAFE'
+        background_color: '#FFFFFF'
     }
   }
 }
