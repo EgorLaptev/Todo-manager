@@ -21,6 +21,10 @@
     "stylus-loader": "^6.2.0",
     "vue-pwa-asset-generator": "^1.6.1"
   },
+  "engines": {
+    "node": "^17.4.0",
+    "yarn": "^1.0.1"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
