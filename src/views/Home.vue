@@ -30,7 +30,7 @@
     import TodoList from "../components/TodoList.vue";
     import TodoItem from "../components/TodoItem.vue";
 
-    window.baseUrl = 'https://my.todos.gq';
+    window.baseUrl = 'http://api.todos.gq';
     window.bearerToken = 'Bearer a5bef7e392e140f7d68106310e3435db3b1902e0d44d0c8768ee6090af7e97ddcf9a61'
 
     export default {
