@@ -116,12 +116,12 @@
                 })
                     .then( resp => resp.json() )
                     .then( todos => {
-                        todos['data'].filter( todo => {
+                        todos.filter( todo => {
                             todo.tags = JSON.parse(todo.tags)
                             todo.tags.forEach( tag => this.tags.add(tag) );
                         }) // Parse todo tags
-                        this.todos = todos['data'];
-                        localStorage.setItem('todos', JSON.stringify(todos['data']));
+                        this.todos = todos;
+                        localStorage.setItem('todos', JSON.stringify(todos));
                         this.dataIsLoading = false;
                     });
             },
