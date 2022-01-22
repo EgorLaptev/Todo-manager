@@ -3,7 +3,7 @@
     <li class="todo-item">
 
         <input type="checkbox" @focus="openTodo(todo.id)" v-model="todo.completed" class="todo-item__completed">
-        <input type="text" class="todo-item__input" v-model="todo.title" @focus="openTodo(todo.id)" placeholder="Enter the title">
+        <input type="text" class="todo-item__input" v-model="todo.title" @focus="openTodo(todo.id)" maxlength="30" placeholder="Enter the title">
 
         <TodoTags :todo="todo"></TodoTags>
 

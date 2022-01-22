@@ -13,7 +13,7 @@
         </TodoList>
     </main>
 
-    <EditTodo :todo="openedTodo"></EditTodo>
+    <EditTodo :todo="openedTodo" @closeTodo="closeTodo"></EditTodo>
 
 </template>
 
@@ -133,6 +133,9 @@
                     headers: { Authorization: bearerToken },
                     method: 'DELETE'
                 });
+            },
+            closeTodo() {
+                this.openedTodo = null;
             }
         },
         watch: {
@@ -174,6 +177,7 @@
                 filters: this.filters,
                 lists:   this.lists,
                 tags:    this.tags,
+                openedTodo: computed( () => this.openedTodo )
             }
         },
         mounted() {
@@ -197,7 +201,9 @@
 }
 
 body {
-    height: 100vh;
+    position: fixed;
+    width: 100%;
+    height: 100%;
     font-size: 18rem;
     font-family: sans-serif;
     color: #111;
@@ -210,8 +216,8 @@ a {
 }
 
 .app {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     display: grid;
     grid-template-columns: 50px minmax(200px, 3fr) 10fr minmax(250px, 6fr);
 }
@@ -270,6 +276,15 @@ a {
 
     .app__todo {
         display: none;
+    }
+
+    .app__todo.app__todo_opened {
+        position: absolute;
+        right: 0;
+        height: 100vh;
+        width: calc(100vw - 50px);
+        background-color: white;
+        display: block;
     }
 
 }
