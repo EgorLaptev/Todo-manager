@@ -1,7 +1,7 @@
 <template>
 
     <ul class="todo__tags" v-if="todo">
-        <li class="todo__tag" v-for="tag of todo.tags" @click="this.setFilterTag(tag)">{{ tag }}</li>
+        <li class="todo__tag" v-for="tag of todo.tags.slice(0, 2)" @click="this.setFilterTag(tag)" >{{ tag }}</li>
         <li class="todo__tag todo__tag_add" @click="addTag">+</li>
     </ul>
 
