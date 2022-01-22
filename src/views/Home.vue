@@ -154,7 +154,7 @@
                             'Content-Type': 'application/json',
                             Authorization: bearerToken,
                         },
-                        method: 'PUT', body
+                        method: 'PATCH', body
                     });
 
                 },1000),
@@ -213,7 +213,7 @@ a {
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: 50px minmax(100px, 3fr) 10fr minmax(250px, 5fr);
+    grid-template-columns: 50px minmax(200px, 3fr) 10fr minmax(250px, 6fr);
 }
 
 
@@ -228,6 +228,7 @@ a {
 
 .app__body::-webkit-scrollbar {
     background: transparent;
+    width: 0;
 }
 
 .app_add-todo {
@@ -242,6 +243,43 @@ a {
 
 .app_add-todo::placeholder {
     color: #DDD;
+    text-align: left;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .app {
+        grid-template-columns: 50px minmax(345px, 10fr) minmax(250px, 5fr);
+    }
+
+    .app__filters {
+        display: none;
+    }
+
+    .app_add-todo::placeholder {
+        text-align: center;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .app {
+        grid-template-columns: 50px minmax(345px, 10fr)
+    }
+
+    .app__todo {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 481px) {
+
+    .app__body {
+        padding: 25px 0;
+    }
+
 }
 
 </style>

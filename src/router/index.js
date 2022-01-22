@@ -5,7 +5,7 @@ import Component404 from '../views/Component404.vue';
 
 const routes = [
   { path: '/', component: Home, name: 'Home', alias: ['/home'] },
-  { path: '/login', name: 'login', components: Auth },
+  { path: '/login', name: 'login', component: Auth },
   { path: '/:pathMatch(.*)', component: Component404 }
 ];
 
