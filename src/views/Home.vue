@@ -21,6 +21,7 @@
 
     import * as _ from "lodash";
     import { computed, ref } from "vue";
+    import router from "../router/index.js";
 
     // Vue components
     import OptionsPanel from "../components/OptionsPanel.vue";
@@ -29,9 +30,10 @@
     import EditTodo from "../components/EditTodo.vue";
     import TodoList from "../components/TodoList.vue";
     import TodoItem from "../components/TodoItem.vue";
+    import Note from "../components/Note.vue";
 
     window.baseUrl = 'http://api.todos.gq';
-    window.bearerToken = 'Bearer a5bef7e392e140f7d68106310e3435db3b1902e0d44d0c8768ee6090af7e97ddcf9a61'
+    window.bearerToken = 'Bearer ' + localStorage.getItem('api_token') || null;
 
     export default {
         name: 'app',
@@ -56,7 +58,8 @@
             FiltersPanel,
             PureLoader,
             EditTodo,
-            TodoList
+            TodoList,
+            Note
         },
         methods: {
             addTodo() {
@@ -110,6 +113,7 @@
                 this.openedTodo = this.todos.find( item => item.id === id );
             },
             syncTodos() {
+
                 fetch(`${baseUrl}/api/todos`, {
                     method: 'GET',
                     headers: { Authorization: bearerToken }
@@ -136,6 +140,9 @@
             },
             closeTodo() {
                 this.openedTodo = null;
+            },
+            authorizate() {
+                return (localStorage.getItem('api_token') !== null);
             }
         },
         watch: {
@@ -181,8 +188,9 @@
             }
         },
         mounted() {
-            this.syncTodos()
-        }
+            if ( this.authorizate() ) this.syncTodos();
+            else router.push({ name: 'login' });
+        },
     }
 
 </script>

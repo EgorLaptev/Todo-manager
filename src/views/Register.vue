@@ -2,23 +2,11 @@
 
     <section id="authorization" class="authorization">
 
-        <div class="login">
-
-            <h2 class="login__title">Log in</h2>
-
-            <form method="POST" class="login__form">
-                <input type="text" name="email" placeholder="E-mail" autocomplete="off">
-                <input type="password" placeholder="Password" name="password" autocomplete="off">
-                <input type="submit" value="Log in">
-            </form>
-
-        </div>
-
         <div class="register">
 
             <h2 class="register__title">Register</h2>
 
-            <form method="POST" class="register__form">
+            <form method="POST" class="register__form" @submit.prevent="register" id="registerForm">
 
                 <input type="text" name="email" placeholder="E-mail" autocomplete="off">
                 <input type="text" name="name" placeholder="Username" autocomplete="off">
@@ -28,6 +16,8 @@
 
             </form>
 
+            <router-link class="register__redirect" :to="{ name: 'login' }">Login</router-link>
+
         </div>
 
     </section>
@@ -35,61 +25,78 @@
 </template>
 
 <script>
+
+    import router from '../router/index.js';
+
     export default {
-        name: "Auth"
+        name: "Register",
+        methods: {
+            register() {
+
+                const registerForm = document.querySelector('#registerForm');
+
+                const body = new FormData(registerForm);
+
+                fetch(`${baseUrl}/api/users`, { method: 'POST', body })
+                    .then( resp => resp.json() )
+                    .then( data => {
+                        console.log(data);
+                        if (data.api_token) {
+                            window.bearerToken = 'Bearer ' + data.api_token;
+                            localStorage.setItem('api_token', data.api_token);
+                            router.push({name: 'home'});
+                        }
+                    });
+
+            }
+        }
     }
 </script>
 
-<style>
-
-:root {
-    --accent-1: #8ACAFE;
-    --accent-2: #6abcff;
-    --accent-3: #b1d9fc ;
-}
-
-body {
-    overflow: hidden;
-}
+<style scoped>
 
 .authorization {
+
+    --accent-1: #8ACAFE;
+    --accent-2: #6abcff;
+    --accent-3: #b1d9fc;
+    --accent-4: #F4FAFE;
+
+    width: 100%;
+    height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 150px;
     position: fixed;
     inset: 0;
     background-size: 50vw auto;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
-    perspective: 1100px;
 }
 
-.login,
+.register__redirect {
+    color: #CCC;
+}
+
 .register {
     z-index: 2;
     padding: 50px;
     border-radius: 0px;
     text-align: center;
     background: #FFF;
-    transition: transform .3s;
-    box-shadow: 0 0 50px 10px #F1F1F1;
 }
 
-.login__form,
 .register__form {
     display: grid;
     grid-gap: 15px;
-
+    margin-bottom: 20px;
 }
 
 .register__form {
     grid-template-columns: 1fr 1fr;
 }
 
-.login__title,
 .register__title {
     line-height: 1.35em;
     font-size: 78rem;
@@ -98,36 +105,31 @@ body {
     margin-bottom: 75px;
 }
 
-
-.login__form input,
 .register__form input {
     color: var(--accent-3);
     font-size: 20rem;
     border-radius: 0;
-    border: 2px solid var(--accent-3);
+    border: none;
+    border-left: 3px solid var(--accent-3);
     outline: none;
     padding: 10px 25px;
     text-align: center;
+    background: var(--accent-4);
 }
-
-.login__form input:focus,
 .register__form input:focus {
     border-color: var(--accent-1);
     color: var(--accent-1);
 }
 
-.login__form input:focus::placeholder,
 .register__form input:focus::placeholder {
     opacity: 0;
 }
 
-.login__form input::placeholder,
 .register__form input::placeholder {
     color: var(--accent-3);
     transition: opacity .3s;
 }
 
-.login__form input[type='submit'],
 .register__form input[type='submit'] {
     cursor: pointer;
     border-color: var(--accent-1);
@@ -135,7 +137,6 @@ body {
     color: white;
 }
 
-.login__form input[type='submit']:hover,
 .register__form input[type='submit']:hover {
     border-color: var(--accent-2);
     background-color: var(--accent-2);
@@ -151,12 +152,10 @@ body {
     text-align: center;
 }
 
-
 @media screen and (max-width: 1300px) {
     .authorization {
         grid-template-columns: 1fr;
     }
-    .login,
     .register {
         max-width: 95vw;
     }
@@ -175,8 +174,7 @@ body {
     .authorization h2 {
         font-size: 30px;
     }
-    .register,
-    .login {
+    .register {
         width: 95vw;
         padding: 50px 5px;
     }
@@ -190,3 +188,4 @@ body {
 }
 
 </style>
+

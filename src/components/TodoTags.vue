@@ -5,7 +5,7 @@
         <li class="todo__tag todo__tag_add" @click="addTag">+</li>
     </ul>
 
-</template>
+</template>:
 
 <script>
     export default {
