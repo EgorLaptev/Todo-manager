@@ -22,7 +22,7 @@
 
 </script>
 
-<style >
+<style>
 
 .app__filters {
     padding: 50px 15px;
@@ -54,6 +54,7 @@
     display: inline-block;
     margin-bottom: 10px;
     font-weight: normal;
+    font-size: 18px;
     color: #BBB;
 }
 
