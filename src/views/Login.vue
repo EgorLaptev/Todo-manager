@@ -164,15 +164,12 @@
 
 @media screen and (max-width: 400px) {
     .authorization h2 {
-        font-size: 30px;
+        font-size: 56px;
+        margin-bottom: 40px;
     }
     .login {
         width: 95vw;
-        padding: 50px 5px;
-    }
-    .authorization form input {
-        font-size: 15px;
-        width: 100%;
+        padding: 5px 10px;
     }
 }
 

@@ -172,15 +172,11 @@
 
 @media screen and (max-width: 400px) {
     .authorization h2 {
-        font-size: 30px;
+        font-size: 56px;
     }
     .register {
         width: 95vw;
         padding: 50px 5px;
-    }
-    .authorization form input {
-        font-size: 15px;
-        width: 100%;
     }
     .register__form {
         grid-template-columns: 1fr;
