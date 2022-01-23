@@ -8,7 +8,7 @@
             {{ tag }}
         </li>
         <li class="todo__tag todo__tag_add" @keydown.enter="addTag">
-            <input type="text" v-model="newTag" class="todo__tag-input" placeholder="new">
+            <input type="text" v-model="newTag" class="todo__tag-input" placeholder="new" @focus="openTodo">
         </li>
     </ul>
 
@@ -36,6 +36,9 @@
             },
             deleteTag(tag) {
                 this.todo.tags.delete(tag);
+            },
+            openTodo() {
+                this.$emit('focused');
             }
         },
     }

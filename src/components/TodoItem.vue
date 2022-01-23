@@ -5,7 +5,7 @@
         <input type="checkbox" @focus="openTodo(todo.id)" v-model="todo.completed" class="todo-item__completed">
         <input type="text" class="todo-item__input" v-model="todo.title" @focus="openTodo(todo.id)" maxlength="30" placeholder="Enter the title">
 
-        <TodoTags :todo="todo"></TodoTags>
+        <TodoTags :todo="todo" @focused="openTodo(todo.id)"></TodoTags>
 
         <button @click="toggleOptions" class="todo-item__more"><i class="fas fa-ellipsis-v"></i></button>
 
@@ -36,7 +36,7 @@
         methods: {
             toggleOptions(e) { this.showOptions = !this.showOptions },
             openTodo(id) {
-               this.$emit('updateOpenedTodo', id);
+                this.$emit('updateOpenedTodo', id);
             },
             deleteTodo(id) {
                 this.$emit('deleteTodo', id);
