@@ -16,7 +16,7 @@
             <svg class="icon icon--md margin-right-sm" aria-hidden="true"></svg>
 
             <div class="note__content text-component">
-                <p> {{ this.message }} </p>
+                <p> <slot></slot> </p>
             </div>
         </div>
     </aside>
@@ -28,8 +28,7 @@
         name: "Note",
         data() {
             return {
-                title: 'Note',
-                message: 'The data is synchronized'
+                title: 'Note'
             }
         }
     }

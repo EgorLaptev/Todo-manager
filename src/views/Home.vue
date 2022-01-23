@@ -44,6 +44,7 @@
                 tags: new Set(),
                 openedTodo: null,
                 dataIsLoading: true,
+                api_token: localStorage.getItem('api_token'),
                 filters: { tag: null, list: 0 },
                 lists: [
                     { id: 0, name: 'All' },
@@ -112,70 +113,84 @@
             openTodo(id) {
                 this.openedTodo = this.todos.find( item => item.id === id );
             },
-            syncTodos() {
+            uploadTodos() {
 
-                fetch(`${baseUrl}/api/todos`, {
-                    method: 'GET',
-                    headers: { Authorization: bearerToken }
-                })
+                this.todos.forEach( todo => {
+
+                    // Build request body
+                    const body = JSON.stringify({
+                        title: todo.title,
+                        description: todo.description,
+                        completed: todo.completed,
+                        tags: JSON.stringify(Array.from(todo.tags))
+                    });
+
+                    // Build request headers
+                    const headers = {
+                        Authorization: bearerToken,
+                        'Content-Type': 'application/json'
+                    };
+
+                    // Send request
+                    fetch(`${baseUrl}/api/todos/${todo.id}`, { method: 'PATCH', headers, body });
+
+                });
+
+            },
+            loadTodos() {
+
+                // Build request headers
+                const headers = { Authorization: bearerToken };
+
+                // Send request
+                fetch(`${baseUrl}/api/todos`, { method: 'GET', headers })
                     .then( resp => resp.json() )
                     .then( todos => {
+
+                        // Parse task's tags
                         todos.filter( todo => {
-                            todo.tags = JSON.parse(todo.tags)
+                            todo.tags = new Set(JSON.parse(todo.tags));
                             todo.tags.forEach( tag => this.tags.add(tag) );
-                        }) // Parse todo tags
+                        });
+
                         this.todos = todos;
+                        this.dataIsLoading = false; // Hide pretty loader
                         localStorage.setItem('todos', JSON.stringify(todos));
-                        this.dataIsLoading = false;
+
                     });
+
             },
             deleteTodo(id) {
+
+                // Delete task from local list
                 const todo = this.todos.find( item => item.id === id );
                 this.todos.splice(this.todos.indexOf(todo), 1);
 
-                fetch(`${baseUrl}/api/todos/${id}`, {
-                    headers: { Authorization: bearerToken },
-                    method: 'DELETE'
-                });
+                // Build request headers
+                const headers = { Authorization: bearerToken };
+
+                // Send request
+                fetch(`${baseUrl}/api/todos/${id}`, { method: 'DELETE', headers });
+
             },
-            closeTodo() {
-                this.openedTodo = null;
-            },
-            authorizate() {
-                return (localStorage.getItem('api_token') !== null);
-            }
+            closeTodo() { this.openedTodo = null },
         },
         watch: {
             openedTodo: {
-                handler: _.debounce( todo => {
-
-                    if (!todo.id) return false;
-
-
-                    const body = JSON.stringify({
-                        tags: JSON.stringify(todo.tags),
-                        title: todo.title,
-                        completed: todo.completed,
-                        description: todo.description,
-                    });
-
-                    fetch(`${baseUrl}/api/todos/${todo.id}`, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: bearerToken,
-                        },
-                        method: 'PATCH', body
-                    });
-
-                },1000),
+                handler: _.debounce( function() {
+                    this.uploadTodos();
+                } , 1000),
                 deep: true
             }
         },
         computed: {
+            isAuthorizated() {
+                return localStorage.getItem('api_token') !== null
+            },
             filteredTodos() {
                 return this.todos.filter( todo => {
                     if ( ( todo.completed && [0,1].includes(this.filters.list) ) || ( !todo.completed && [0,2].includes(this.filters.list) ) )  // Lists
-                        if ( todo.tags.find( tag => tag === this.filters.tag ) || !this.filters.tag ) return true;
+                        if ( todo.tags.has(this.filters.tag) || !this.filters.tag ) return true;
                 })
             }
         },
@@ -188,8 +203,9 @@
             }
         },
         mounted() {
-            if ( this.authorizate() ) this.syncTodos();
+            if ( this.isAuthorizated ) this.loadTodos();
             else router.push({ name: 'login' });
+            setTimeout( this.uploadTodos, 3000);
         },
     }
 
