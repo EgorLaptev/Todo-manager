@@ -319,6 +319,10 @@ a {
         grid-template-columns: 1fr;
     }
 
+    .app__todo.app__todo_opened {
+        width: 100vw;
+    }
+
     .app__body {
         padding: 25px 0;
     }
