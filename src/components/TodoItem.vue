@@ -5,7 +5,7 @@
         <input type="checkbox" @focus="openTodo(todo.id)" v-model="todo.completed" class="todo-item__completed">
         <input type="text" class="todo-item__input" v-model="todo.title" @focus="openTodo(todo.id)" maxlength="30" placeholder="Enter the title">
 
-        <TodoTags :todo="todo" @focused="openTodo(todo.id)"></TodoTags>
+        <TodoTags :todo="todo" @focused="openTodo(todo.id)" class="todo-item__tags"></TodoTags>
 
         <button @click="toggleOptions" class="todo-item__more"><i class="fas fa-ellipsis-v"></i></button>
 
@@ -118,6 +118,14 @@
 
 .options-popup__item button:hover {
     background: #FEDDDE;
+}
+
+@media screen and (max-width: 1268px){
+
+    .todo-item__tags {
+        display: none;
+    }
+
 }
 
 </style>

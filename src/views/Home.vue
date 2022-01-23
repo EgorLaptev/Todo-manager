@@ -315,6 +315,10 @@ a {
 
 @media screen and (max-width: 481px) {
 
+    .app {
+        grid-template-columns: 1fr;
+    }
+
     .app__body {
         padding: 25px 0;
     }

@@ -15,10 +15,8 @@
             <li class="aside__item">
                 <i class="fas fa-cog"></i>
             </li>
-            <li class="aside__item">
-                <router-link :to="{ name: 'login' }">
-                    <i class="fas fa-sign-out-alt"></i>
-                </router-link>
+            <li class="aside__item" @click="logout">
+                <i class="fas fa-sign-out-alt"></i>
             </li>
         </ul>
 
@@ -27,8 +25,17 @@
 </template>
 
 <script>
+
+    import router from '../router/index.js';
+
     export default {
         name: "OptionsPanel",
+        methods: {
+            logout() {
+                localStorage.removeItem('api_token');
+                router.push({ name: 'login' });
+            }
+        }
     }
 </script>
 
@@ -78,6 +85,15 @@
         border-radius: 5px;
         width: 100%;
         height: 100%;
+
+    }
+
+
+    @media screen and (max-width: 481px) {
+
+        .app__aside {
+            display: none;
+        }
 
     }
 
