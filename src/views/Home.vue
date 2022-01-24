@@ -324,7 +324,7 @@ a {
     }
 
     .app__body {
-        padding: 0;
+        padding: 0 0 20px 0;
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
@@ -332,11 +332,11 @@ a {
     }
 
     .app_add-todo {
-        width: 100%;
+        width: 90%;
         padding: 10px 5px;
-        border-radius: 5px 5px 0 0;
-        background: #FFF;
-        border-top: 1px solid #EEE;
+        border-radius: 50px;
+        background: white;
+        box-shadow: 0 0 10px 0 #eee;
         text-align: center;
     }
 
