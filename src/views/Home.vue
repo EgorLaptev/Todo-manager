@@ -39,7 +39,7 @@
         name: 'app',
         data() {
             return {
-                todo: { id: null, title: '', description: '', completed: false, tags: [] },
+                todo: { id: null, title: '', description: '', completed: false, tags: new Set() },
                 todos: [],
                 tags: new Set(),
                 openedTodo: null,
@@ -70,44 +70,33 @@
 
                 // Add tag
                 if (tag && tag.trim()) {
-
-                    let tagExists = false,
-                        tagObj    = null;
-
-                    for (const tagItem of this.tags) if (tagItem.name == tag.trim().toLowerCase()) {
-                        tagExists = true;
-                        tagObj = tagItem;
-                    }
-
-                    if (!tagExists) this.tags.add(tag.trim().toLowerCase());
-                    this.todo.tags.push(tag.trim().toLowerCase());
-
+                    this.tags.add(tag.trim().toLowerCase());
+                    this.todo.tags.add(tag.trim().toLowerCase());
                 }
 
-                // Store new todo
+                // Store new task
                 if (title.trim()) {
 
-                    const body = JSON.stringify({
-                        title, tags: JSON.stringify(this.todo.tags)
-                    })
+                    // Build request body
+                    const body = JSON.stringify({ title, tags: JSON.stringify(Array.from(this.todo.tags)) });
 
-                    fetch(`${baseUrl}/api/todos`, {
-                        method: 'POST', body,
-                        headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
-                            Authorization: bearerToken
-                        }
-                    })  .then( resp => resp.json() )
-                        .then( todo => {
-                            this.todos[this.todos.length-1]['id'] = todo.id;
-                        });
+                    // Build request headers
+                    const headers = {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        Authorization: bearerToken
+                    }
 
                     this.todo.title = title;
                     this.todos.push(this.todo);
 
+                    // Send store task request
+                    fetch(`${baseUrl}/api/todos`, { method: 'POST', body,  headers })
+                        .then( resp => resp.json() )
+                        .then( todo => { this.todos[this.todos.length-1]['id'] = todo.id });
+
                 }
 
-                this.todo = { id: this.todo.id , title: '', description: '', tags: [] }
+                this.todo = { id: this.todo.id , title: '', description: '', tags: new Set() } // Reset new task template
 
             },
             openTodo(id) {
