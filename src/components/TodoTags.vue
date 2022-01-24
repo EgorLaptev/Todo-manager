@@ -8,7 +8,7 @@
             {{ tag }}
         </li>
         <li class="todo__tag todo__tag_add" @keydown.enter="addTag">
-            <input type="text" v-model="newTag" class="todo__tag-input" placeholder="new" @focus="openTodo">
+            <input type="text" v-model="newTag" class="todo__tag-input" placeholder="+" @focus="openTodo">
         </li>
     </ul>
 
@@ -76,6 +76,10 @@
     white-space: nowrap;
     max-width: 125px;
     text-overflow: ellipsis;
+    line-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .tag__delete {
@@ -100,10 +104,15 @@
     border: 1px solid #8ACAFE;
     color: #8ACAFE;
     background-color: transparent;
+    padding: 1px 0;
 }
 
 .todo__tag_add:hover {
     background: #F4FAFE;
+}
+
+.todo__tag-input_add {
+    padding: 0 5px;
 }
 
 </style>

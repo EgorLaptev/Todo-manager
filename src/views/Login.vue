@@ -59,9 +59,17 @@
 </script>
 
 <style scoped>
+
+* {
+    box-sizing: border-box;
+}
+
+.app {
+    grid-template-columns: 1fr;
+}
+
 .authorization {
     overflow: hidden;
-    padding: 150px;
     position: fixed;
     inset: 0;
     display: flex;
@@ -74,14 +82,14 @@
 }
 
 .login {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
     z-index: 2;
-    padding: 50px;
     border-radius: 0;
     text-align: center;
     background: #FFF;
     transition: transform .3s;
-    display: flex;
-    flex-direction: column;
 }
 
 .login__redirect {
@@ -89,9 +97,12 @@
 }
 
 .login__form {
+    position: relative;
     display: grid;
     grid-gap: 15px;
+    max-width: 100%;
     margin-bottom: 20px;
+    grid-template-columns: 1fr;
 }
 
 .login__title {
@@ -105,6 +116,7 @@
 
 .login__form input {
     color: var(--accent-3);
+    max-width: 100%;
     font-size: 20rem;
     border-radius: 0;
     border: none;
@@ -171,6 +183,11 @@
         width: 95vw;
         padding: 5px 10px;
     }
+
+    .login__form input {
+        padding: 10px 0;
+    }
+
 }
 
 </style>

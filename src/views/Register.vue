@@ -64,9 +64,7 @@
 
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 150px;
+    overflow: hidden;
     position: fixed;
     inset: 0;
     background-size: 50vw auto;
@@ -81,8 +79,6 @@
 
 .register {
     z-index: 2;
-    padding: 50px;
-    border-radius: 0px;
     text-align: center;
     background: #FFF;
 }
@@ -107,7 +103,7 @@
 
 .register__form input {
     color: var(--accent-3);
-    font-size: 20rem;
+    font-size: 18rem;
     border-radius: 0;
     border: none;
     border-left: 3px solid var(--accent-3);
@@ -181,6 +177,11 @@
     .register__form {
         grid-template-columns: 1fr;
     }
+
+    .register__form input {
+        padding: 10px 0;
+    }
+
 }
 
 </style>

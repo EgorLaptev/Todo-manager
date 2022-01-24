@@ -324,7 +324,20 @@ a {
     }
 
     .app__body {
-        padding: 25px 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .app_add-todo {
+        width: 100%;
+        padding: 10px 5px;
+        border-radius: 5px 5px 0 0;
+        background: #FFF;
+        border-top: 1px solid #EEE;
+        text-align: center;
     }
 
 }

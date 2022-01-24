@@ -10,8 +10,20 @@
         <button @click="toggleOptions" class="todo-item__more"><i class="fas fa-ellipsis-v"></i></button>
 
         <ul class="options-popup" v-show="showOptions">
-            <li class="options-popup__item">
-                <button @click="deleteTodo(todo.id)"><i class="fas fa-minus-square"></i></button>
+            <li class="options-popup__item options-popup__item_download">
+                <button @click="deleteTodo(todo.id)">
+                    <i class="fas fa-save"></i> Download
+                </button>
+            </li>
+            <li class="options-popup__item options-popup__item_archive">
+                <button @click="deleteTodo(todo.id)">
+                    <i class="fas fa-archive"></i> Archive
+                </button>
+            </li>
+            <li class="options-popup__item options-popup__item_remove">
+                <button @click="deleteTodo(todo.id)">
+                    <i class="fas fa-trash"></i> Remove
+                </button>
             </li>
         </ul>
 
@@ -79,8 +91,8 @@
 }
 
 .todo-item__completed {
-    height: 15px;
-    width: 15px;
+    min-height: 12px;
+    min-width: 12px;
     border: none;
     margin-right: 10px;
 }
@@ -97,10 +109,12 @@
 .options-popup {
     display: block;
     position: absolute;
-    left: 100%;
-    top: 0;
-    padding: 0;
-    background: #CBE7FE;
+    right: 0;
+    top: 110%;
+    padding: 10px;
+    border-radius: 3px;
+    background: #FFF;
+    box-shadow: 1px 1px 5px 1px #DFDFDF;
     list-style: none;
     z-index: 10;
 }
@@ -113,11 +127,23 @@
     cursor: pointer;
     font-size: 16px;
     padding: 10px;
-    color: #F4FAFE;
+    color: #111;
 }
 
-.options-popup__item button:hover {
-    background: #FEDDDE;
+.options-popup__item_remove button:hover {
+    color: #D4252D;
+}
+
+.options-popup__item_archive button:hover {
+    color: #D47535;
+}
+
+.options-popup__item_download button:hover {
+    color: #66CC69;
+}
+
+.options-popup i {
+    margin-right: 15px;
 }
 
 @media screen and (max-width: 1268px){
