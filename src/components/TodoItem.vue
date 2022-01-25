@@ -154,4 +154,15 @@
 
 }
 
+@media screen and (max-width: 481px){
+    .todo-item {
+        border-left-width: 3px;
+        padding: 5px 20px;
+    }
+    .todo-item__completed {
+        min-height: 15px;
+        min-width: 15px;
+    }
+}
+
 </style>
