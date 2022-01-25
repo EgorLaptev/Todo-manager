@@ -18,7 +18,7 @@
     export default {
         data() {
             return {
-                newTag: null
+                newTag: ''
             }
         },
         name: "TodoTags",
@@ -30,9 +30,13 @@
                 else this.filters.tag = tag;
             },
             addTag() {
+
+                if (!this.newTag.trim()) return false;
+
                 this.todo.tags.add(this.newTag);
                 this.tags.add(this.newTag);
-                this.newTag = null;
+                this.newTag = '';
+
             },
             deleteTag(tag) {
                 this.todo.tags.delete(tag);
