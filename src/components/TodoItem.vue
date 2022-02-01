@@ -5,27 +5,11 @@
         <input type="checkbox" @focus="openTodo(todo.id)" v-model="todo.completed" class="todo-item__completed">
         <input type="text" class="todo-item__input" v-model="todo.title" @focus="openTodo(todo.id)" maxlength="30" placeholder="Enter the title">
 
-        <TodoTags :todo="todo" @focused="openTodo(todo.id)" class="todo-item__tags"></TodoTags>
+        <TodoTags :todo="todo" class="todo-item__tags"></TodoTags>
 
         <button @click="toggleOptions" class="todo-item__more"><i class="fas fa-ellipsis-v"></i></button>
 
-        <ul class="options-popup" v-show="showOptions">
-            <li class="options-popup__item options-popup__item_download">
-                <button @click="deleteTodo(todo.id)">
-                    <i class="fas fa-save"></i> Download
-                </button>
-            </li>
-            <li class="options-popup__item options-popup__item_archive">
-                <button @click="deleteTodo(todo.id)">
-                    <i class="fas fa-archive"></i> Archive
-                </button>
-            </li>
-            <li class="options-popup__item options-popup__item_remove">
-                <button @click="deleteTodo(todo.id)">
-                    <i class="fas fa-trash"></i> Remove
-                </button>
-            </li>
-        </ul>
+        <TodoOptions :show="this.showActions"></TodoOptions>
 
     </li>
 
@@ -34,28 +18,30 @@
 <script>
 
     import TodoTags from "./TodoTags.vue";
+    import TodoOptions from "./TodoOptions.vue";
 
     export default {
         name: "TodoItem",
         data() {
             return {
-                showOptions: false
+                showActions: false
             }
         },
         props: {
             todo: Object
         },
         methods: {
-            toggleOptions(e) { this.showOptions = !this.showOptions },
-            openTodo(id) {
-                this.$emit('updateOpenedTodo', id);
-            },
-            deleteTodo(id) {
-                this.$emit('deleteTodo', id);
+            toggleOptions(e) { this.showActions = !this.showActions },
+            openTodo(id) { this.$store.commit('setOpenedTodo', this.todo) }
+        },
+        provide() {
+            return {
+                todoId: this.todo.id
             }
         },
         components: {
-            TodoTags
+            TodoTags,
+            TodoOptions
         }
     }
 </script>
@@ -104,46 +90,6 @@
     color: #444;
     margin-left: 20px;
     cursor: pointer;
-}
-
-.options-popup {
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 110%;
-    padding: 10px;
-    border-radius: 3px;
-    background: #FFF;
-    box-shadow: 1px 1px 5px 1px #DFDFDF;
-    list-style: none;
-    z-index: 10;
-}
-
-.options-popup__item button {
-    height: 100%;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px;
-    color: #111;
-}
-
-.options-popup__item_remove button:hover {
-    color: #D4252D;
-}
-
-.options-popup__item_archive button:hover {
-    color: #D47535;
-}
-
-.options-popup__item_download button:hover {
-    color: #66CC69;
-}
-
-.options-popup i {
-    margin-right: 15px;
 }
 
 @media screen and (max-width: 1268px){

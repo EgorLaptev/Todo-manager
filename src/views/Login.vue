@@ -43,12 +43,11 @@
                 body.append('email', this.email);
                 body.append('password', this.password);
 
-                fetch(`${baseUrl}/api/users/login`, { method: 'POST', body })
+                fetch(`${this.$store.state.apiURL}/api/users/login`, { method: 'POST', body })
                     .then( resp => resp.json() )
                     .then( data => {
                         if (data.api_token) {
-                            window.bearerToken = 'Bearer ' + data.api_token;
-                            localStorage.setItem('api_token', data.api_token);
+                            this.$store.commit('setApiToken', data.api_token);
                             router.push({ name: 'home' });
                         }
                     });

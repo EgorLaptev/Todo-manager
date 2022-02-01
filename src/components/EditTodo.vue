@@ -27,11 +27,15 @@
     export default {
         name: "EditTodo",
         props: ['todo'],
-        inject: ['openedTodo'],
+        data() {
+            return {
+                openedTodo: this.$store.state.openedTodo
+            }
+        },
         methods: {
             closeTodo() {
-                this.$emit('closeTodo');
-            }
+                this.$store.commit('setOpenedTodo', null);
+            },
         },
         components: {
             TodoTags

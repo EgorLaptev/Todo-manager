@@ -8,7 +8,7 @@
             {{ tag }}
         </li>
         <li class="todo__tag todo__tag_add" @keydown.enter="addTag">
-            <input type="text" v-model="newTag" class="todo__tag-input" placeholder="+" @focus="openTodo">
+            <input type="text" v-model="tagName" class="todo__tag-input" placeholder="+" @focus="openTodo">
         </li>
     </ul>
 
@@ -18,12 +18,12 @@
     export default {
         data() {
             return {
-                newTag: ''
+                tagName: '',
+                filters: this.$store.state.filters
             }
         },
         name: "TodoTags",
         props: ['todo'],
-        inject: ['tags', 'filters'],
         methods: {
             setFilterTag(tag) {
                 if (this.filters.tag === tag) this.filters.tag = null;
@@ -31,18 +31,18 @@
             },
             addTag() {
 
-                if (!this.newTag.trim()) return false;
+                if (!this.tagName.trim()) return false;
 
-                this.todo.tags.add(this.newTag);
-                this.tags.add(this.newTag);
-                this.newTag = '';
+                this.todo.tags.add(this.tagName);
+                this.$store.commit('addTag', this.tagName);
+                this.tagName = '';
 
             },
             deleteTag(tag) {
                 this.todo.tags.delete(tag);
             },
             openTodo() {
-                this.$emit('focused');
+                this.$store.commit('setOpenedTodo', this.todo);
             }
         },
     }

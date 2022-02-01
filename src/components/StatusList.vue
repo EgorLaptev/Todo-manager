@@ -2,7 +2,7 @@
 
     <h4 class="lists-list__title">Lists</h4>
     <ul class="lists-list">
-        <li class="lists-list__item" v-for="list of lists" @click="setFilterList(list.id)" :class="{activeTag: isListActivated(list.id)}">
+        <li class="lists-list__item" v-for="list of this.$store.state.lists" @click="setFilterList(list.id)" :class="{activeTag: isListActivated(list.id)}">
             <input type="text" v-model="list.name" class="lists-list__input" placeholder="Enter the title" disabled>
         </li>
     </ul>
@@ -12,13 +12,12 @@
 <script>
     export default {
         name: "StatusList",
-        inject: ['filters', 'lists'],
         methods: {
             isListActivated(id) {
-                return this.filters.list === id;
+                return this.$store.state.filters.list === id;
             },
             setFilterList(id) {
-                this.filters.list = id;
+                this.$store.state.filters.list = id;
             }
         },
     }
