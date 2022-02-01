@@ -2,7 +2,8 @@
 
     <li class="todo-item">
 
-        <input type="checkbox" @focus="openTodo(todo.id)" v-model="todo.completed" class="todo-item__completed">
+        <Checkbox @focus="openTodo(todo.id)" v-model="todo.completed" class="todo-item__completed"></Checkbox>
+
         <input type="text" class="todo-item__input" v-model="todo.title" @focus="openTodo(todo.id)" maxlength="30" placeholder="Enter the title">
 
         <TodoTags :todo="todo" class="todo-item__tags"></TodoTags>
@@ -19,6 +20,9 @@
 
     import TodoTags from "./TodoTags.vue";
     import TodoOptions from "./TodoOptions.vue";
+    import { Checkbox } from 'ant-design-vue';
+
+    import 'ant-design-vue/dist/antd.css';
 
     export default {
         name: "TodoItem",
@@ -41,7 +45,8 @@
         },
         components: {
             TodoTags,
-            TodoOptions
+            TodoOptions,
+            Checkbox
         }
     }
 </script>
@@ -77,10 +82,7 @@
 }
 
 .todo-item__completed {
-    min-height: 12px;
-    min-width: 12px;
-    border: none;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .todo-item__more {

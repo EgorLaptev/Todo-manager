@@ -3,20 +3,20 @@
     <aside class="app__aside">
 
         <ul class="aside__list">
-            <li class="aside__item">
-                <img class="user-avatar" src="../assets/img/avatar.jpg"/>
+            <li class="aside__item" style="{ background: #8ACAFE }">
+                <img class="user-avatar" src="../assets/img/avatar.jpg" alt="">
             </li>
             <li class="aside__item aside__item_active">
-                <i class="fas fa-check-square"></i>
+                <CheckSquareOutlined/>
             </li>
             <li class="aside__item">
-                <i class="fas fa-search"></i>
+                <SettingOutlined/>
             </li>
             <li class="aside__item">
-                <i class="fas fa-cog"></i>
+                <SearchOutlined/>
             </li>
             <li class="aside__item" @click="logout">
-                <i class="fas fa-sign-out-alt"></i>
+                <LogoutOutlined/>
             </li>
         </ul>
 
@@ -28,6 +28,10 @@
 
     import router from '../router/index.js';
 
+    import { Avatar } from 'ant-design-vue';
+    import { SettingOutlined, SearchOutlined, CheckSquareOutlined, LogoutOutlined } from '@ant-design/icons-vue';
+    import 'ant-design-vue/dist/antd.css';
+
     export default {
         name: "OptionsPanel",
         methods: {
@@ -35,6 +39,13 @@
                 localStorage.removeItem('api_token');
                 router.push({ name: 'login' });
             }
+        },
+        components: {
+            SettingOutlined,
+            SearchOutlined,
+            CheckSquareOutlined,
+            LogoutOutlined,
+            Avatar
         }
     }
 </script>
@@ -82,7 +93,7 @@
 
     .user-avatar {
         background: #DDD;
-        border-radius: 5px;
+        border-radius: 3px;
         width: 100%;
         height: 100%;
 

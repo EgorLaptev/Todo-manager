@@ -3,7 +3,7 @@
     <section class="app__todo todo" :class="this.openedTodo ? 'app__todo_opened' : ''" id="appTodo" v-if="todo">
 
         <button class="todo__close" @click="closeTodo">
-            <i class="fas fa-times"></i>
+            <CloseOutlined />
         </button>
 
         <h3 class="todo__title">
@@ -24,6 +24,9 @@
 
     import TodoTags from "./TodoTags.vue";
 
+    import { CloseOutlined } from '@ant-design/icons-vue';
+    import 'ant-design-vue/dist/antd.css';
+
     export default {
         name: "EditTodo",
         props: ['todo'],
@@ -38,7 +41,8 @@
             },
         },
         components: {
-            TodoTags
+            TodoTags,
+            CloseOutlined
         }
     }
 
@@ -69,7 +73,8 @@
         border: none;
         background: transparent;
         font-size: 18px;
-        color: #333333
+        color: #333333;
+        cursor: pointer;
     }
 
     .todo__content-input {

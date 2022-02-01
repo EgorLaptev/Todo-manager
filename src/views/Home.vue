@@ -94,7 +94,7 @@ a {
 .app_add-todo {
     border-radius: 3px;
     border: none;
-    padding: 10px 25px;
+    padding: 9px 25px;
     font-size: 17px;
     outline: none;
     background: #F5f5f5;

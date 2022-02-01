@@ -3,7 +3,7 @@
     <ul class="todo__tags" v-if="todo">
         <li class="todo__tag tag" v-for="tag of todo.tags" @click="this.setFilterTag(tag)" >
             <button class="tag__delete" @click.stop="deleteTag(tag)">
-                <i class="fas fa-times"></i>
+                <MinusOutlined />
             </button>
             {{ tag }}
         </li>
@@ -15,6 +15,10 @@
 </template>:
 
 <script>
+
+    import { MinusOutlined } from '@ant-design/icons-vue';
+    import 'ant-design-vue';
+
     export default {
         data() {
             return {
@@ -45,6 +49,9 @@
                 this.$store.commit('setOpenedTodo', this.todo);
             }
         },
+        components: {
+            MinusOutlined
+        }
     }
 </script>
 
@@ -94,9 +101,8 @@
     border: none;
     border-radius: 10px;
     display: none;
-    font-size: 10px;
-    width: 15px;
-    height: 15px;
+    font-size: 8px;
+    padding: 3px;
     cursor: pointer;
 }
 
