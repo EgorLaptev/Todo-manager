@@ -2,7 +2,8 @@ import { createApp } from 'vue';
 import { createStore } from 'vuex';
 import router from './router';
 import App from './App.vue';
-import './registerServiceWorker'
+import './registerServiceWorker';
+import { Empty } from 'ant-design-vue';
 
 // App state
 const store = createStore({
@@ -13,6 +14,7 @@ const store = createStore({
             apiToken: localStorage.getItem('api_token') || null,
             apiURL: 'http://api.todos.gq',
             dataLoading: true,
+            emptyImage: Empty.PRESENTED_IMAGE_SIMPLE,
             tags: new Set(),
             lists: [
                 { id: 0, name: 'All' },

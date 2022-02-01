@@ -5,7 +5,8 @@
         <input type="text" placeholder="Write title for new todo #tags" class="app_add-todo" v-model.trim="todo.title" @keydown.enter="addTodo">
 
         <ul class="todos-list">
-            <TodoItem v-for="todo of filteredTodos" :todo="todo"></TodoItem>
+            <TodoItem v-if="filteredTodos.length" v-for="todo of filteredTodos" :todo="todo"></TodoItem>
+            <Empty v-else :image="$store.state.emptyImage" description="" :image-style="{ height: '180px' }"></Empty>
         </ul>
 
     </main>
@@ -15,7 +16,10 @@
 <script>
 
     import TodoItem from './TodoItem';
-    import { difference, debounce, concat } from 'lodash';
+    import { debounce } from 'lodash';
+    import { Empty } from 'ant-design-vue';
+
+    import 'ant-design-vue/lib/empty/style/index.css';
 
     export default {
         name: "TodoList",
@@ -27,7 +31,8 @@
           }
         },
         components: {
-            TodoItem
+            TodoItem,
+            Empty
         },
         computed: {
             filteredTodos() {
