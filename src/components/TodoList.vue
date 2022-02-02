@@ -61,6 +61,9 @@
                 // Store new task
                 if (title.trim()) {
 
+                    // Auth
+                    if ( !this.$store.state.apiToken ) return false;
+
                     // Build request body
                     const body = JSON.stringify({ title, tags: JSON.stringify(Array.from(this.todo.tags)) });
 
@@ -84,6 +87,9 @@
 
             },
             loadTodos() {
+
+                // Auth
+                if ( !this.$store.state.apiToken ) return false;
 
                 // Build request headers
                 const headers = { Authorization: this.$store.state.apiToken };
