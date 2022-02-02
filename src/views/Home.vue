@@ -78,6 +78,7 @@ a {
 
 
 .app__body {
+    position: relative;
     padding: 25px;
     display: flex;
     flex-direction: column;
@@ -89,21 +90,6 @@ a {
 .app__body::-webkit-scrollbar {
     background: transparent;
     width: 0;
-}
-
-.app_add-todo {
-    border-radius: 3px;
-    border: none;
-    padding: 9px 25px;
-    font-size: 17px;
-    outline: none;
-    background: #F5f5f5;
-    width: 90%;
-}
-
-.app_add-todo::placeholder {
-    color: #DDD;
-    text-align: left;
 }
 
 @media screen and (max-width: 1024px) {

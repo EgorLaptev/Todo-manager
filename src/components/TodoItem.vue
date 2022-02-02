@@ -55,7 +55,6 @@
     position: relative;
     padding: 0 20px;
     border-left: 3px solid #8ACAFE;
-    margin: 5px 0;
     background: #F4FAFE;
     display: flex;
     flex-direction: row;

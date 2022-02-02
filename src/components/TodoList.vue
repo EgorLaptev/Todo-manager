@@ -2,7 +2,7 @@
 
    <main class="app__body">
 
-        <input type="text" placeholder="Write title for new todo #tags" class="app_add-todo" v-model.trim="todo.title" @keydown.enter="addTodo">
+        <input type="text" placeholder="Add new activity" class="app_add-todo" v-model.trim="todo.title" @keydown.enter="addTodo">
 
         <ul class="todos-list">
             <TodoItem v-if="filteredTodos.length" v-for="todo of filteredTodos" :todo="todo"></TodoItem>
@@ -17,7 +17,7 @@
 
     import TodoItem from './TodoItem';
     import { debounce } from 'lodash';
-    import { Empty } from 'ant-design-vue';
+        import { Empty } from 'ant-design-vue';
 
     import 'ant-design-vue/lib/empty/style/index.css';
 
@@ -49,14 +49,7 @@
         methods: {
             addTodo() {
 
-                // Devide query string for title & tag name
-                const [title, tag] = this.todo.title.split('#');
-
-                // Add tag
-                if (tag && tag.trim()) {
-                    this.tags.add(tag.trim().toLowerCase());
-                    this.todo.tags.add(tag.trim().toLowerCase());
-                }
+                const title = this.todo.title;
 
                 // Store new task
                 if (title.trim()) {
@@ -65,7 +58,7 @@
                     if ( !this.$store.state.apiToken ) return false;
 
                     // Build request body
-                    const body = JSON.stringify({ title, tags: JSON.stringify(Array.from(this.todo.tags)) });
+                    const body = JSON.stringify({ title, tags: JSON.stringify([]) });
 
                     // Build request headers
                     const headers = {
@@ -153,10 +146,28 @@
 
 <style scoped>
 
+    .app_add-todo {
+        border-radius: 3px;
+        border: none;
+        padding: 9px 25px;
+        font-size: 17px;
+        outline: none;
+        background: white;
+        width: 90%;
+        box-shadow: 0 0 10px 0 #E5E5E5;
+    }
+
+    .app_add-todo::placeholder {
+        color: #DDD;
+        text-align: left;
+    }
+
     .todos-list {
+        display: grid;
+        gap: 5px;
         width: 90%;
         margin: 0;
-        padding: 30px 0 0 0;
+        padding: 35px 0 0 0;
         list-style: none;
     }
 
