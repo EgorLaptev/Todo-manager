@@ -8,8 +8,6 @@
 
         <TodoTags :todo="todo" class="todo-item__tags"></TodoTags>
 
-        <button @click="toggleOptions" class="todo-item__more"><i class="fas fa-ellipsis-v"></i></button>
-
         <TodoOptions :show="this.showActions"></TodoOptions>
 
     </li>
@@ -83,15 +81,6 @@
 
 .todo-item__completed {
     margin-right: 20px;
-}
-
-.todo-item__more {
-    background: transparent;
-    border: none;
-    font-size: 15px;
-    color: #444;
-    margin-left: 20px;
-    cursor: pointer;
 }
 
 @media screen and (max-width: 1268px){

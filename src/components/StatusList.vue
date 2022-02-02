@@ -1,6 +1,9 @@
 <template>
 
-    <h4 class="lists-list__title">Lists</h4>
+    <h4 class="lists-list__title">
+        <FolderOutlined /> Lists
+    </h4>
+
     <ul class="lists-list">
         <li class="lists-list__item" v-for="list of this.$store.state.lists" @click="setFilterList(list.id)" :class="{activeTag: isListActivated(list.id)}">
             <input type="text" v-model="list.name" class="lists-list__input" placeholder="Enter the title" disabled>
@@ -10,6 +13,9 @@
 </template>
 
 <script>
+
+    import { FolderOutlined } from '@ant-design/icons-vue';
+
     export default {
         name: "StatusList",
         methods: {
@@ -20,6 +26,9 @@
                 this.$store.state.filters.list = id;
             }
         },
+        components: {
+            FolderOutlined
+        }
     }
 </script>
 

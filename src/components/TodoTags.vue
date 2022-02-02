@@ -1,23 +1,26 @@
 <template>
 
-    <ul class="todo__tags" v-if="todo">
-        <li class="todo__tag tag" v-for="tag of todo.tags" @click="this.setFilterTag(tag)" >
-            <button class="tag__delete" @click.stop="deleteTag(tag)">
-                <MinusOutlined />
-            </button>
-            {{ tag }}
-        </li>
-        <li class="todo__tag todo__tag_add" @keydown.enter="addTag">
-            <input type="text" v-model="tagName" class="todo__tag-input" placeholder="+" @focus="openTodo">
-        </li>
-    </ul>
+    <div class="todo__tags" v-if="todo">
+
+            <Tag class="todo__tag tag" v-for="tag of todo.tags" @click="this.setFilterTag(tag)">
+                {{ tag }}
+                <button class="tag__delete" @click.stop="deleteTag(tag)">
+                    <MinusOutlined />
+                </button>
+            </Tag>
+
+            <Tag class="todo__tag todo__tag_add" @keydown.enter="addTag">
+                <input type="text" v-model="tagName" class="todo__tag-input" placeholder="+" @focus="openTodo">
+            </Tag>
+
+    </div>
 
 </template>:
 
 <script>
 
     import { MinusOutlined } from '@ant-design/icons-vue';
-    import 'ant-design-vue';
+    import { Tag } from 'ant-design-vue';
 
     export default {
         data() {
@@ -50,7 +53,8 @@
             }
         },
         components: {
-            MinusOutlined
+            MinusOutlined,
+            Tag
         }
     }
 </script>
@@ -63,6 +67,7 @@
     margin: 0;
     display: flex;
     gap: 10px;
+
 }
 
 .todo__tag-input {
@@ -79,9 +84,7 @@
 
 .todo__tag {
     position: relative;
-    border-radius: 20px;
     padding: 1px 10px;
-    background: #CBE7FE;
     font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
@@ -91,19 +94,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    background: #8ACAFE;
+    border: 1px solid #8ACAFE;
+    color: white;
 }
 
 .tag__delete {
     position: absolute;
     right: -5%;
     top: -10%;
-    background: #EEE;
+    background: #CBE7FE;
     border: none;
     border-radius: 10px;
     display: none;
     font-size: 8px;
     padding: 3px;
     cursor: pointer;
+    color: #111;
 }
 
 .todo__tag:hover .tag__delete {

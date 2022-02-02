@@ -1,9 +1,13 @@
 <template>
 
-    <h4 class="tags-list__title">Tags</h4>
+    <h4 class="tags-list__title">
+        <TagsOutlined /> Tags
+    </h4>
+
     <button @click="createTag" class="tags-list__add">
         <PlusOutlined />
     </button>
+
     <ul class="tags-list">
         <li class="tags-list__item" v-for="tag of this.$store.state.tags" @click="setFilterTag(tag)" :class="{activeTag: isTagActivated(tag)}">
             <input type="text" class="tags-list__input" placeholder="Enter the title" @keydown.enter="saveName($event, tag)" disabled :value="tag">
@@ -14,7 +18,7 @@
 
 <script>
 
-    import { PlusOutlined } from '@ant-design/icons-vue';
+    import { PlusOutlined, TagsOutlined } from '@ant-design/icons-vue';
     import 'ant-design-vue';
 
     export default {
@@ -35,7 +39,8 @@
             }
         },
         components: {
-            PlusOutlined
+            PlusOutlined,
+            TagsOutlined
         }
     }
 </script>
