@@ -5,7 +5,7 @@
         <input type="text" placeholder="Add new activity" class="app_add-todo" v-model.trim="todo.title" @keydown.enter="addTodo">
 
         <ul class="todos-list">
-            <TodoItem v-if="filteredTodos.length" v-for="todo of filteredTodos" :todo="todo"></TodoItem>
+            <TodoItem v-if="filteredTodos.length" v-for="todo of filteredTodos" :todo="todo" v-on:deleteTodo="deleteTodo"></TodoItem>
             <Empty v-else :image="$store.state.emptyImage" description="" :image-style="{ height: '180px' }"></Empty>
         </ul>
 
@@ -128,6 +128,19 @@
                 });
 
             },
+            deleteTodo(id) {
+
+                // Build request headers
+                const headers = { Authorization: this.$store.state.apiToken };
+
+                // Send request
+                fetch(`${this.$store.state.apiURL }/api/todos/${id}`, { method: 'DELETE', headers });
+
+                // Find * delete task from local list
+                const todo_index = this.todos.findIndex( item => item.id == id );
+                this.todos.splice(todo_index, 1);
+
+            },
         },
         watch: {
             todos: {
@@ -155,6 +168,7 @@
         background: white;
         width: 90%;
         box-shadow: 0 0 10px 0 #E5E5E5;
+        z-index: 100;
     }
 
     .app_add-todo::placeholder {
@@ -167,7 +181,7 @@
         gap: 5px;
         width: 90%;
         margin: 0;
-        padding: 35px 0 0 0;
+        padding: 35px 0 50px 0;
         list-style: none;
     }
 

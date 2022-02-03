@@ -8,7 +8,7 @@
 
         <TodoTags :todo="todo" class="todo-item__tags"></TodoTags>
 
-        <TodoOptions :show="this.showActions"></TodoOptions>
+        <TodoOptions :show="this.showActions" @deleteTodo="$emit('deleteTodo', this.todo.id)"></TodoOptions>
 
     </li>
 
@@ -29,6 +29,7 @@
                 showActions: false
             }
         },
+        emits: ['deleteTodo'],
         props: {
             todo: Object
         },

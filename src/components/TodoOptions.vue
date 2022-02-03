@@ -19,7 +19,7 @@
                     </a-button>
                 </a-menu-item>
                 <a-menu-item class="options-popup__item">
-                    <a-button @click="deleteTodo">
+                    <a-button @click="$emit('deleteTodo')">
                         <DisconnectOutlined /> Remove
                     </a-button>
                 </a-menu-item>
@@ -40,6 +40,7 @@
         props: {
             show: Boolean
         },
+        emits: ['deleteTodo'],
         inject: ['todoId'],
         components: {
             'a-dropdown': Dropdown,
@@ -50,18 +51,6 @@
             StarOutlined,
             DisconnectOutlined,
             DownloadOutlined
-        },
-        methods: {
-            deleteTodo(id) {
-
-
-                // Build request headers
-                const headers = { Authorization: this.$store.state.apiToken };
-
-                // Send request
-                fetch(`${this.$store.state.apiURL }/api/todos/${this.todoId}`, { method: 'DELETE', headers });
-
-            },
         }
     }
 </script>
